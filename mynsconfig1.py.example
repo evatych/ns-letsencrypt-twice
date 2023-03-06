@@ -1,4 +1,4 @@
-nitroNSIP = "192.168.2.54"
+nitroNSIP = "192.168.1.54"
 nitroUser = "nsroot"
 nitroPass = "nsroot"
 
