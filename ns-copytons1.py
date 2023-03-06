@@ -6,7 +6,7 @@
 import json, requests, base64, sys, os, re
 requests.packages.urllib3.disable_warnings()
 #imports variables used for script
-from mynsconfig import *
+from mynsconfig1 import *
 
 __author__ = "Ryan Butler (techdrabble.com)"
 __license__ = "GPL"
@@ -223,10 +223,10 @@ if whattodo == "save":
    localkey = sys.argv[3]
    localchain = sys.argv[4]
    domain = sys.argv[5]
-   m = re.search("(.+?)(?=\.)", domain)
-   nspairname = nspairname + "-" + m.group(0)[:20]
-   nscert = nscert + "-" + m.group(0)[:20] + ".cert"
-   nskey = nskey + "-" + m.group(0)[:20] + ".key"
+   m = re.sub("\.", "-", domain)
+   nspairname = nspairname + "-" + m[:20]
+   nscert = nscert + "-" + m[:20] + ".cert"
+   nskey = nskey + "-" + m[:20] + ".key"
    existcode = GetSSL(connectiontype,nitroNSIP,authToken, nspairname)
    if existcode == 200:
        print("Using existing cert")
