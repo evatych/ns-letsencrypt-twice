@@ -1,10 +1,10 @@
 #!/bin/bash
-export counter_file=$(mktemp "/root/ns-letsencrypt/.counter.XXXXXX")
-export connect_file=$(mktemp "/root/ns-letsencrypt/.connect.XXXXXX")
+export counter_file=$(mktemp "/opt/ns-letsencrypt-twice/.counter.XXXXXX")
+export connect_file=$(mktemp "/opt/ns-letsencrypt-twice/.connect.XXXXXX")
 printf '%s\n' "0" >"$connect_file"
 
 #Force renewal
-/root/ns-letsencrypt/dehydrated/dehydrated -c -f /root/ns-letsencrypt/config.sh -x -k /root/ns-letsencrypt/ns-hook.sh
+/opt/ns-letsencrypt-twice/dehydrated/dehydrated -c -f /opt/ns-letsencrypt-twice/config.sh -x -k /opt/ns-letsencrypt-twice/ns-hook.sh
 
 #Cleanup unused certs
-/root/ns-letsencrypt/dehydrated/dehydrated -gc -f /root/ns-letsencrypt/config.sh
+/opt/ns-letsencrypt-twice/dehydrated/dehydrated -gc -f /opt/ns-letsencrypt-twice/config.sh
