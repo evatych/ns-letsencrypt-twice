@@ -1,13 +1,14 @@
 #!/bin/bash
 
-KEYSIZE="2048"
+KEY_ALGO=rsa
 PRIVATE_KEY_RENEW="no"
 
-#USE BELOW CA FOR TESTING OTHERWISE YOU MIGHT GET BANNED FROM LE https://community.letsencrypt.org/t/rate-limits-for-lets-encrypt/6769
-CA="https://acme-staging-v02.api.letsencrypt.org/directory"
+#USE CA="letsencrypt-test" FOR TESTING OTHERWISE YOU MIGHT GET BANNED FROM LE https://letsencrypt.org/docs/rate-limits/
+#CA="letsencrypt"
+CA="letsencrypt-test"
 
 HOOK_CHAIN="no"
-WELLKNOWN="/root/ns-letsencrypt/www-temp"
+WELLKNOWN="/opt/ns-letsencrypt-twice/www-temp"
 # E-mail to use during the registration (default: <unset>)
 CONTACT_EMAIL="admin@yourdomain.com"
 
