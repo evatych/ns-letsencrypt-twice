@@ -2,7 +2,7 @@ A fork of [ryancbutler/ns-letsencrypt](https://github.com/ryancbutler/ns-letsenc
 The number of netscalers is hardcoded. Don't be too harsh, I'm not a coder.  
 You need to fill both 'mynsconfig1.py' and 'mynsconfig2.py' and test both 'ns-copytons1.py' and 'ns-copytons1.py'.
 
-Another minor changes:
+Other minor changes:
 - Updated version of dehydrated
 - Changed some parameters in config.sh to match updated dehydrated
 - Certificates and files are named by FQDN, not by hostname
