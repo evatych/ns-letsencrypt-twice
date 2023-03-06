@@ -6,7 +6,7 @@
 import json, requests, base64, sys, os, re
 requests.packages.urllib3.disable_warnings()
 #imports variables used for script
-from mynsconfig1 import *
+from mynsconfig2 import *
 
 __author__ = "Ryan Butler (techdrabble.com)"
 __license__ = "GPL"
