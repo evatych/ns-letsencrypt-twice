@@ -160,7 +160,7 @@ exit_hook() {
   rm -rf /opt/ns-letsencrypt-twice/.connect*
   rm -rf /opt/ns-letsencrypt-twice/.counter*
   echo "Exiting"
-  echo $(date)
+  echo $(date -Ins)
   echo
 }
 
@@ -168,7 +168,7 @@ startup_hook() {
   # This hook is called before the cron command to do some initial tasks
   # (e.g. starting a webserver).
   echo
-  echo $(date)
+  echo $(date -Ins)
   echo Testing Netscaler Connectivity
   /opt/ns-letsencrypt-twice/ns-copytons1.py test
   ret1=$?
