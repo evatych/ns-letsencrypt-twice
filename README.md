@@ -9,6 +9,13 @@ Other minor changes:
 - Base directory changed to work not as root
 - Echo date and time to make the logs easier to read
 
+2024-06 Added changes from @aderixon's PR https://github.com/ryancbutler/ns-letsencrypt/pull/19:
+
+> Handle new Let's Encrypt R10-R14 rotating CA chain certs from June 2024:
+>  - Use nschain/nschainname as base and append SHA1 hex fingerprint to uniquely identify each chain cert
+>  - Always check if CA cert exists and create if not
+>  - Always link renewed cert in case signing CA has changed (reports 'Conflict' if linked cert is unchanged, can be ignored)
+
 The original readme is below:
 
 > To be used with [Netscaler Certificate Automation](http://techdrabble.com/citrix/18-letsencrypt-san-certificate-with-citrix-netscaler-take-2) process.  Please checkout blog for how-to.

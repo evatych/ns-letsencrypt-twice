@@ -3,7 +3,9 @@
 #USE AT OWN RISK
 
 #Imports
-import json, requests, base64, sys, os, re
+import json, requests, base64, sys, os, re, pathlib
+from cryptography import x509
+from cryptography.hazmat.primitives import hashes
 requests.packages.urllib3.disable_warnings()
 #imports variables used for script
 from mynsconfig2 import *
@@ -227,6 +229,14 @@ if whattodo == "save":
    nspairname = nspairname + "-" + m[:20]
    nscert = nscert + "-" + m[:20] + ".cert"
    nskey = nskey + "-" + m[:20] + ".key"
+   # obtain fingerprint of CA chain cert:
+   with open(localchain, 'rb') as f:
+       cert = x509.load_pem_x509_certificate(f.read())
+   cafp = cert.fingerprint(hashes.SHA1())
+   cafphx = cafp.hex()
+   # create unique chain cert names from fingerprint:
+   nschain_u = pathlib.Path(nschain).stem + '-' + cafphx + pathlib.Path(nschain).suffix
+   nschainname_u = nschainname + '-' + cafphx
    existcode = GetSSL(connectiontype,nitroNSIP,authToken, nspairname)
    if existcode == 200:
        print("Using existing cert")
@@ -238,14 +248,17 @@ if whattodo == "save":
        sendFile(connectiontype,nitroNSIP,authToken,nscert,localcert,nscertpath)
        sendFile(connectiontype,nitroNSIP,authToken,nskey,localkey,nscertpath)
        createSSL(connectiontype,nitroNSIP,authToken, nscert, nspairname, nskey)
-       existchaincode = GetSSL(connectiontype,nitroNSIP,authToken, nschainname)
+   # check if CA already exists							   
+       existchaincode = GetSSL(connectiontype,nitroNSIP,authToken, nschainname_u)
        if existchaincode == 200:
            print("Using existing CA")
        else:
            print("Creating CA")
-           sendFile(connectiontype,nitroNSIP,authToken,nschain,localchain,nscertpath)
-           createSSLCA(connectiontype,nitroNSIP,authToken, nschain, nschainname)
-       linkSSL(connectiontype,nitroNSIP,authToken, nschainname, nspairname)
+           sendFile(connectiontype,nitroNSIP,authToken,nschain_u,localchain,nscertpath)
+           createSSLCA(connectiontype,nitroNSIP,authToken, nschain_u, nschainname_u)
+   # always relink cert in case CA has changed; throws harmless error if this
+   # chain is already linked, otherwise replaces:
+   linkSSL(connectiontype,nitroNSIP,authToken, nschainname_u, nspairname)
 elif whattodo == "test":
    print("Connectivity To Netscaler OK")
 elif whattodo == "challenge":
